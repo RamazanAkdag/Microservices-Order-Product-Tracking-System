@@ -3,9 +3,8 @@ pipeline {
     stages {
         stage('Build and Push') {
             agent {
-                docker {
+                Docker {
                     image 'maven:3.8.1-jdk-11'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
             steps {
