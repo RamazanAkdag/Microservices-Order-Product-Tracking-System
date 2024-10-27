@@ -2,10 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
-            }
+        stage('Build and Push') {
+                   steps {
+                       echo 'Building and Pushing Docker Image...'
+                       sh 'mvn clean compile jib:build'
+                   }
         }
         stage('Test') {
             steps {
