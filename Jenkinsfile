@@ -1,7 +1,10 @@
 pipeline {
     agent any
+    environment {
+            BRANCH_NAME = "${env.GIT_BRANCH?.replaceAll('origin/', '')}"
+    }
     stages {
-        /*stage('Build and Push Docker image') {
+        stage('Build and Push Docker image') {
             agent {
                 docker {
                     image 'maven:3.8.3-openjdk-17'
@@ -14,13 +17,17 @@ pipeline {
                  }
 
             }
-        }*/
-        stage('Create Deployment Yamls') {
-            steps {
-                sh 'ls -la'
-            }
-
         }
+       stage('Create Deployment Yamls') {
+               steps {
+                   script {
+                        def outputPath = "/home/kali/CICD/deployments/${BRANCH_NAME}"
+                        sh "mkdir -p ${outputPath}"
+                        sh "kompose convert -f . -o ${outputPath}"
+                        sh "source /home/kali/CICD/sendToK8s.sh ${BRANCH_NAME}"
+                   }
+               }
+       }
 
     }
 }
