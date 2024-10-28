@@ -21,6 +21,8 @@ pipeline {
        stage('Create Deployment Yamls') {
                steps {
                    script {
+                        sh "whoami"
+                        sh "pwd"
                         def outputPath = "/home/kali/CICD/deployments/${BRANCH_NAME}"
                         sh "mkdir -p ${outputPath}"
                         sh "kompose convert -f . -o ${outputPath}"
