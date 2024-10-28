@@ -26,7 +26,7 @@ pipeline {
                         def outputPath = "/home/jenkins/CICD/deployments/${BRANCH_NAME}"
                         sh "mkdir -p ${outputPath}"
                         sh "kompose convert -f docker-compose.yml -o ${outputPath}"
-                        sh "source /home/jenkins/CICD/sendToK8s.sh ${BRANCH_NAME}"
+                        sh "bash /home/jenkins/CICD/sendToK8s.sh ${BRANCH_NAME}"
                    }
                }
        }
