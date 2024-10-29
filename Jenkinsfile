@@ -4,7 +4,7 @@ pipeline {
             BRANCH_NAME = "${env.GIT_BRANCH?.replaceAll('origin/', '')}"
     }
     stages {
-      /*  stage('Build and Push Docker image') {
+      stage('Build and Push Docker image') {
             agent {
                 docker {
                     image 'maven:3.8.3-openjdk-17'
@@ -17,7 +17,7 @@ pipeline {
                  }
 
             }
-        }*/
+        }
        stage('Create Deployment Yamls') {
                steps {
                    script {
