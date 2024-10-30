@@ -6,12 +6,10 @@ pipeline {
     stages {
         stage('Build and Push Docker image') {
             agent { 
-                node {
-                    label 'docker-host' // Bu aşama sadece docker-host adlı agent'ta çalışacak
-                }
-                docker {
-                    image 'maven:3.8.3-openjdk-17' // Docker içinde Maven ve OpenJDK 17 imajı kullanılacak
-                    args '-v /var/run/docker.sock:/var/run/docker.sock' // Docker konteyner içinde Docker kullanımı için gerekli
+                docker { 
+                    label 'docker-host' // Docker-host üzerinde çalışacak
+                    image 'maven:3.8.3-openjdk-17' // Maven imajı
+                    args '-v /var/run/docker.sock:/var/run/docker.sock' // Docker içinde Docker çalıştırmak için gerekli
                 }
             }
             steps {
@@ -35,3 +33,4 @@ pipeline {
         }*/
     }
 }
+
