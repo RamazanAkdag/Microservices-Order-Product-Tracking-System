@@ -9,6 +9,7 @@ pipeline {
             steps {
                 script {
                     docker.image('maven:3.8.3-openjdk-17').inside('-v /var/run/docker.sock:/var/run/docker.sock') {
+                        sh "whoami"
                         echo 'Building and Pushing Docker Image...'
                         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                             sh 'mvn clean compile jib:build -Djib.to.auth.username=$DOCKER_USERNAME -Djib.to.auth.password=$DOCKER_PASSWORD'
